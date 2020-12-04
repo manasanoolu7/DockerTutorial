@@ -1,0 +1,31 @@
+version: "3"
+services:
+  pipeline_container:
+    build:
+      context: '/docker'
+      dockerfile: Dockerfile
+    volumes:
+      - /model:/model
+    #links:
+    # - "model_container"
+    # - "preprocessing_container"
+    # - "utils_container"
+  model_container:
+    build:
+      working_dir: /app/model
+      #command: ./model.py
+      volumes:
+        - /model:/model
+  proprocessing_container:
+    build:
+      working_dir: /app/preprocessing
+      #command: ./preprocessing.py
+      volumes:
+        - /model:/model
+  utils_container:
+    build:
+      working_dir: /app/utils
+      #command: ./utils.py
+      volumes:
+        - /model:/model
+
